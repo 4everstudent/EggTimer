@@ -8,42 +8,44 @@
     tools:context="a4everstudent.eggtimer.MainActivity">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         app:srcCompat="@drawable/egg"
         android:id="@+id/imageView2"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/seekBar" />
 
-    <SeekBar
+    <Button
+        android:text="GO!"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="31dp"
-        android:id="@+id/seekBar"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/timerView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp"
+        android:id="@+id/startStopButton" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="time"
         android:ems="10"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/imageView2"
-        android:layout_alignStart="@+id/imageView2"
-        android:id="@+id/editText" />
+        android:id="@+id/timerView"
+        android:text="00:30"
+        android:textSize="70sp"
+        android:layout_below="@+id/seekBar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="171dp"
+        android:textAlignment="center" />
 
-    <Button
-        android:text="START"
-        android:layout_width="wrap_content"
+    <SeekBar
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp"
-        android:id="@+id/startStopButton" />
+        android:layout_marginTop="15dp"
+        android:id="@+id/seekBar"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>
