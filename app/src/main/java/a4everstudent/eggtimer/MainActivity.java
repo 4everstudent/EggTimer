@@ -1,5 +1,6 @@
 package a4everstudent.eggtimer;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.SeekBar;
@@ -35,8 +36,23 @@ public class MainActivity extends AppCompatActivity {
                 int minutes = (int) progress/60;
                 int seconds = progress - minutes *60;
 
+                String secondsString = Integer.toString(seconds);
+
+                if(secondsString.length() == 1){
+
+                    if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+                            && Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                        secondsString = "0"+secondsString;
+                    }
+                    else{
+                        secondsString = String.format("%02d", secondsString);
+                    }
+                }
+
+
+
                 //update the timer text view
-                timerView.setText(Integer.toString(minutes)+":"+Integer.toString(seconds));
+                timerView.setText(Integer.toString(minutes)+":"+ secondsString);
 
 
             }
@@ -51,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
                 //stop countdown timer
             }
         });
+
+
     }
 
 }
