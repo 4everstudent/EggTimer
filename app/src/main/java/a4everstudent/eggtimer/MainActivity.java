@@ -1,10 +1,11 @@
 package a4everstudent.eggtimer;
 
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -18,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     int currentTime= 30;
     SeekBar timerControl;
     TextView timerView;
+    MediaPlayer mPlayer;
+    AudioManager audioController;
 
     public void controlTimer(View view){
 
@@ -31,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 timerView.setText("00:00");
-                Log.i("Finished Yehhhh", "you're now older!");
-            }
+                mPlayer.start();
+                           }
         }.start();
     }
 
@@ -70,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         timerControl.setMax(maxTime);
         timerControl.setProgress(currentTime);
 
+        mPlayer = MediaPlayer.create(this, R.raw.air_horn_from_soundbible);
 
         timerControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
 
