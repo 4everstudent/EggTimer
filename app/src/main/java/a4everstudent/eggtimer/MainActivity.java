@@ -1,17 +1,18 @@
 package a4everstudent.eggtimer;
 
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 
-
+// TODO: 05-10-2016 Add pause function
+// TODO: 05-10-2016 run test to check device compatibility
 
 public class MainActivity extends AppCompatActivity {
     //define initialTime in seconds
@@ -20,23 +21,45 @@ public class MainActivity extends AppCompatActivity {
     SeekBar timerControl;
     TextView timerView;
     MediaPlayer mPlayer;
-    AudioManager audioController;
+    Boolean counterIsActive = false;
+    Button controllerButton;
+    CountDownTimer countDownTimer;
 
-    public void controlTimer(View view){
+    public void resetTimer(){
+        timerView.setText("00:30");
+        timerControl.setProgress(30);
+        timerControl.setEnabled(true);
+        countDownTimer.cancel();
+        controllerButton.setText("GO!");
+        counterIsActive = false;
+    }
 
-        new CountDownTimer(timerControl.getProgress() *1000 +100, 1000){
+    public void controlTimer(View view) {
+        if (counterIsActive == false) {
+            counterIsActive = true;
+            timerControl.setEnabled(false);
+            controllerButton.setText("STOP!");
 
-            @Override
-            public void onTick(long millisUntilFinished) {
-                updateTimer((int) millisUntilFinished/1000);
-            }
 
-            @Override
-            public void onFinish() {
-                timerView.setText("00:00");
-                mPlayer.start();
-                           }
-        }.start();
+            countDownTimer = new CountDownTimer(timerControl.getProgress() * 1000 + 100, 1000) {
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    updateTimer((int) millisUntilFinished / 1000);
+                }
+
+                @Override
+                public void onFinish() {
+                    timerView.setText("00:00");
+                    mPlayer.start();
+                    resetTimer();
+                }
+            }.start();
+        }
+
+        else{
+            resetTimer();
+        }
     }
 
     public void updateTimer(int secondsLeft){
@@ -74,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         timerControl.setProgress(currentTime);
 
         mPlayer = MediaPlayer.create(this, R.raw.air_horn_from_soundbible);
+        controllerButton = (Button) findViewById(R.id.controllerButton);
 
         timerControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
 
